@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #loadingScreen, #imageModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #imageModal img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background-color: #FFF;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #imageContainer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #imageModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    flex-direction: column; /* Added this to stack the close button and image vertically */
+}
+
+#generatedImage {
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+
+        /* Stili per la barra di caricamento */
+        #loadingBarContainer {
+            width: 80%;
+            max-width: 300px; /* Limit the width */
+            background-color: #ddd;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        #loadingBar {
+            width: 0;
+            height: 20px;
+            background-color: #007BFF;
+            border-radius: 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #countdownBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black */
+  color: white;
+  border-radius: 8px;
+  font-size: 24px;
+  display: none; /* Initially hidden */
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+#countdown {
+  text-align: center;
+}
+
+
+
+
+#countdownDisplay {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        #loadingContainer {
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+            text-align: center;
+        }
+
+        #loadingMessage {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Enter a Prompt to Generate an Image</h1>
+    <form>
+        <textarea name="prompt" placeholder="Enter your prompt here..."></textarea>
+        <button type="submit">Generate Image</button>
+    </form>
+<!-- Place this where you want the countdown to appear on your page -->
+<div id="countdownDisplay" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px;">
+    <p>Image will be ready in <span id="countdownValue">0</span> seconds.</p>
+</div>
+
+<!-- Loading Screen -->
+<div id="loadingScreen" style="display: none;">
+    <div id="loadingContainer">
+        <div id="loadingMessage">Generating your image...</div>
+        <progress id="progressBar" max="100" value="0"></progress>
+    </div>
+</div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" style="display: none;">
+        <span class="close">&times;</span>
+        <img id="generatedImage" alt="Generated Image">
+    </div>
+
+
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
+
